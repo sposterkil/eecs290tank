@@ -3,10 +3,10 @@
 var leftTrack : MoveTrack;
 var rightTrack : MoveTrack;
 
-var acceleration : float = 5;
+var acceleration : float = 2;
 
 var currentVelocity : float = 0;
-var maxSpeed : float = 25;
+var maxSpeed : float = 10;
 
 var rotationSpeed : float = 30;
 
@@ -27,13 +27,18 @@ function Update () {
 	
 	if (Input.GetKey (KeyCode.UpArrow)) {
 		// plus speed
-		if (currentVelocity <= maxSpeed) 
+		if (currentVelocity < maxSpeed) {
 			currentVelocity += acceleration * Time.deltaTime;
+			if (currentVelocity > maxSpeed)
+				currentVelocity = maxSpeed;
+		}
 
 	} else if (Input.GetKey (KeyCode.DownArrow)) {
 		// minus speed
-		if (currentVelocity >= -maxSpeed) 
+		if (currentVelocity > -maxSpeed) 
 			currentVelocity -= acceleration * Time.deltaTime;
+			if (currentVelocity < -maxSpeed)
+				currentVelocity = -maxSpeed;
 		
 	} else {
 		// No key input. 
@@ -46,7 +51,7 @@ function Update () {
 
 
 	// Turn off engine if currentVelocity is too small. 
-	if (Mathf.Abs(currentVelocity) <= 0.05)
+	if (Mathf.Abs(currentVelocity) <= 0.005)
 		currentVelocity = 0;
 
 	// Move Tank by currentVelocity
@@ -72,14 +77,12 @@ function Update () {
 		leftTrack.GearStatus = 0;	
 		rightTrack.GearStatus = 0;		
 	}
-
-
+	
 	// Turn Tank
 	if (Input.GetKey (KeyCode.LeftArrow)) {
-		if (Input.GetKey(KeyCode.DownArrow)) {
+		if (currentVelocity < 0) {
 			// Turn right
 			transform.Rotate(Vector3(0, rotationSpeed * Time.deltaTime, 0));
-			
 			leftTrack.speed = rotationSpeed;
 			leftTrack.GearStatus = 1;
 			rightTrack.speed = rotationSpeed;
@@ -88,7 +91,6 @@ function Update () {
 		} else {
 			// Turn left
 			transform.Rotate(Vector3(0, -rotationSpeed * Time.deltaTime, 0));
-			
 			leftTrack.speed = rotationSpeed;
 			leftTrack.GearStatus = 2;
 			rightTrack.speed = rotationSpeed;
@@ -96,9 +98,8 @@ function Update () {
 			
 		}
 	}
-
 	if (Input.GetKey (KeyCode.RightArrow)) {
-		if (Input.GetKey(KeyCode.DownArrow)) {
+		if (currentVelocity < 0) {
 			// Turn left
 			transform.Rotate(Vector3(0, -rotationSpeed * Time.deltaTime, 0));
 			leftTrack.speed = rotationSpeed;
@@ -116,7 +117,6 @@ function Update () {
 			
 		}
 	}
-	
 	
 	// Fire!
 	if (Input.GetButtonDown("Fire1")) {
