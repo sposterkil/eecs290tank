@@ -3,10 +3,10 @@
 var leftTrack : MoveTrack;
 var rightTrack : MoveTrack;
 
-var acceleration : float = 5;
+var acceleration : float = 2;
 
 var currentVelocity : float = 0;
-var maxSpeed : float = 25;
+var maxSpeed : float = 10;
 
 var rotationSpeed : float = 30;
 
@@ -27,13 +27,18 @@ function Update () {
 	
 	if (Input.GetKey (KeyCode.UpArrow)) {
 		// plus speed
-		if (currentVelocity <= maxSpeed) 
+		if (currentVelocity < maxSpeed) {
 			currentVelocity += acceleration * Time.deltaTime;
+			if (currentVelocity > maxSpeed)
+				currentVelocity = maxSpeed;
+		}
 
 	} else if (Input.GetKey (KeyCode.DownArrow)) {
 		// minus speed
-		if (currentVelocity >= -maxSpeed) 
+		if (currentVelocity > -maxSpeed) 
 			currentVelocity -= acceleration * Time.deltaTime;
+			if (currentVelocity < -maxSpeed)
+				currentVelocity = -maxSpeed;
 		
 	} else {
 		// No key input. 
@@ -46,7 +51,7 @@ function Update () {
 
 
 	// Turn off engine if currentVelocity is too small. 
-	if (Mathf.Abs(currentVelocity) <= 0.05)
+	if (Mathf.Abs(currentVelocity) <= 0.005)
 		currentVelocity = 0;
 
 	// Move Tank by currentVelocity
