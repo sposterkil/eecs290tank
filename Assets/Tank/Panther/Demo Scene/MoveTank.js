@@ -72,14 +72,12 @@ function Update () {
 		leftTrack.GearStatus = 0;	
 		rightTrack.GearStatus = 0;		
 	}
-
-
+	
 	// Turn Tank
 	if (Input.GetKey (KeyCode.LeftArrow)) {
-		if (Input.GetKey(KeyCode.DownArrow)) {
+		if (currentVelocity < 0) {
 			// Turn right
 			transform.Rotate(Vector3(0, rotationSpeed * Time.deltaTime, 0));
-			
 			leftTrack.speed = rotationSpeed;
 			leftTrack.GearStatus = 1;
 			rightTrack.speed = rotationSpeed;
@@ -88,7 +86,6 @@ function Update () {
 		} else {
 			// Turn left
 			transform.Rotate(Vector3(0, -rotationSpeed * Time.deltaTime, 0));
-			
 			leftTrack.speed = rotationSpeed;
 			leftTrack.GearStatus = 2;
 			rightTrack.speed = rotationSpeed;
@@ -96,9 +93,8 @@ function Update () {
 			
 		}
 	}
-
 	if (Input.GetKey (KeyCode.RightArrow)) {
-		if (Input.GetKey(KeyCode.DownArrow)) {
+		if (currentVelocity < 0) {
 			// Turn left
 			transform.Rotate(Vector3(0, -rotationSpeed * Time.deltaTime, 0));
 			leftTrack.speed = rotationSpeed;
@@ -116,7 +112,6 @@ function Update () {
 			
 		}
 	}
-	
 	
 	// Fire!
 	if (Input.GetButtonDown("Fire1")) {
