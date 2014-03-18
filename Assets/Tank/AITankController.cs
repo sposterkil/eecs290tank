@@ -11,6 +11,11 @@ public class AITankController : MonoBehaviour {
     private Vector3 targetLoc; // The position the tank is moving towards
     private List<GameObject> enemyList; //The list of things this tank considers an enemy
 
+    private int maxSpeed = 10;
+    private int accel = 2;
+    private Vector3 currentVel = new Vector3(0, 0, 0);
+    private Vector3 currentAccel = new Vector3(0, 0, 0);
+
 	// Use this for initialization
 	void Start () {
         currentState = States.Sleeping;
@@ -29,8 +34,16 @@ public class AITankController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+        if (getTarget()){
+            moveTo(targetLoc);
+        }
+        transform.position = transform.position + currentVel;
 	}
+
+    void moveTo(Vector3 goal){
+        Vector3 goalVelocity = Vector3.Normalize(goal - transform.position) * maxSpeed;
+        Vector3 steerVelocity = Vector3.Normalize(goalVelocity - currentVel) * maxSpeed;
+    }
 
     bool getTarget(){
         foreach (GameObject enemy in enemyList){
