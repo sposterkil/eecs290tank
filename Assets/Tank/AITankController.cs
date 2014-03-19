@@ -40,22 +40,28 @@ public class AITankController : MonoBehaviour {
         transform.position = transform.position + currentVel;
 	}
 
+
+
     void moveTo(Vector3 goal){
         Vector3 goalVelocity = Vector3.Normalize(goal - transform.position) * maxSpeed;
         Vector3 steerVelocity = Vector3.Normalize(goalVelocity - currentVel) * maxSpeed;
+        currentVel = steerVelocity;
     }
 
     bool getTarget(){
         foreach (GameObject enemy in enemyList){
             RaycastHit hit;
+            List<GameObject> seenEnemies = new List<GameObject>;
             Vector3 toEnemy = transform.position - enemy.transform.position;
             if (Physics.Linecast(transform.position + new Vector3(0, 1, 0), toEnemy, out hit)){
                 if (hit.collider.gameObject == enemy){
-                    targetLoc = enemy.transform.position;
-                    return true;
+                    seenEnemies.Add(enemy);
                 }
             }
         }
-        return false;
+        if (seenEnemies.Count > 0){
+            seenEnemies.OrderBy(Vector3.magnitude(transform.position ))
+        }
+        else
     }
 }
