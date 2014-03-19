@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class AITankController : MonoBehaviour {
 
@@ -34,24 +35,23 @@ public class AITankController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (getTarget()){
-            moveTo(targetLoc);
+        getTarget();
+        if (targetLoc != null){
+            setVelTowards(targetLoc);
         }
         transform.position = transform.position + currentVel;
 	}
 
-
-
-    void moveTo(Vector3 goal){
+    void setVelTowards(Vector3 goal){
         Vector3 goalVelocity = Vector3.Normalize(goal - transform.position) * maxSpeed;
         Vector3 steerVelocity = Vector3.Normalize(goalVelocity - currentVel) * maxSpeed;
         currentVel = steerVelocity;
     }
 
-    bool getTarget(){
+    void getTarget(){
+        List<GameObject> seenEnemies = new List<GameObject>();
         foreach (GameObject enemy in enemyList){
             RaycastHit hit;
-            List<GameObject> seenEnemies = new List<GameObject>;
             Vector3 toEnemy = transform.position - enemy.transform.position;
             if (Physics.Linecast(transform.position + new Vector3(0, 1, 0), toEnemy, out hit)){
                 if (hit.collider.gameObject == enemy){
@@ -60,8 +60,8 @@ public class AITankController : MonoBehaviour {
             }
         }
         if (seenEnemies.Count > 0){
-            seenEnemies.OrderBy(Vector3.magnitude(transform.position ))
+            // seenEnemies = seenEnemies.OrderBy<GameObject>(Vector3.magnitude(enemy => transform.position - enemy.transform.position));
+            // Sorry for breakin' shit guys!
         }
-        else
     }
 }
