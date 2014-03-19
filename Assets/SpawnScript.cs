@@ -4,6 +4,8 @@ using System.Collections;
 public class SpawnScript : MonoBehaviour {
 
 	public Transform spawn1; // places that are set
+	public Transform spawn2;
+	public Transform spawn3;
 	public Transform tank;
 
 
@@ -19,21 +21,44 @@ public class SpawnScript : MonoBehaviour {
 
 		// for testing purposes press f5
 		if (Input.GetKeyDown ("f5")) {
+
 						Spawn ("enemy");
 				}
 	
 	}
 
+	/**
+	 * Random spawn at one of the places
+	 */
+	void Spawn(string role) {
+		Spawn (Random.Range (1, 4), role);
+	}
 
 	/*
 	 * Handles the tank spawning
 	 */
-	void Spawn(string role) {
+	void Spawn(int spawn, string role) {
 		Object ai;
 		if (role.Equals ("enemy")) {
 						Debug.Log ("enemy spawned"); // 
-			ai = Instantiate(tank, spawn1.position, Quaternion.identity);
-
+			switch(spawn) {
+				case 1:			
+				ai = Instantiate(tank, spawn1.position, Quaternion.identity);
+				//ai.GetChild("turret").GetChild("cannon").GetChild("TPCamera").enable = false;
+				break;
+				case 2:
+				ai = Instantiate(tank, spawn2.position, Quaternion.identity);
+				//ai.turret.cannon.TPCamera.enable = false;
+				break;
+				case 3:
+				ai = Instantiate(tank, spawn3.position, Quaternion.identity);
+				//ai.turret.cannon.TPCamera.enable = false;
+				break;
+			default:
+				Debug.Log ("not a valid spawn");
+				break;
+			}
+				
 		} 
 		else if (role.Equals ("ally")) {
 						Debug.Log ("ally spawned");
