@@ -26,6 +26,7 @@ public class TankManager {
 		get {
 			if (_instance == null) {
 				_instance = new TankManager();
+				_instance.FriendlyTanks.Add(GameObject.Find("PlayerTank"));
 			}
 			return _instance;
 		}
