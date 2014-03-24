@@ -131,6 +131,6 @@ function Update () {
 	var map : Transform = GameObject.Find("ZMinimap").transform;
 	var player : Transform = GameObject.Find("PlayerTank").transform;
 	map.localPosition.x = player.localPosition.x;
-	map.localPosition.y = player.localPosition.y + 100f;
+	map.localPosition.y = player.localPosition.y + 150f;
 	map.localPosition.z = player.localPosition.z;
 }
