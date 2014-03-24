@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +35,18 @@ public class AITankController : MonoBehaviour {
             enemyList = TankManager.Instance.EnemyTanks;
             gameObject.tag = "friendly";
         }
+        Debug.Log("My Enemies");
+        foreach (GameObject o in enemyList){
+            Debug.Log(o);
+        }
+        Debug.Log("The Enemies");
+        foreach (GameObject o in TankManager.Instance.EnemyTanks){
+            Debug.Log(o);
+        }
+        Debug.Log("My Friends");
+        foreach (GameObject o in TankManager.Instance.FriendlyTanks){
+            Debug.Log(o);
+        }
 	}
 
 	// Update is called once per frame
@@ -45,12 +57,13 @@ public class AITankController : MonoBehaviour {
             setVelTowards(targetLoc);
         }
 
+
 	}
 
-    Vector3 setVelTowards(Vector3 goal){
+    void setVelTowards(Vector3 goal){
         Vector3 goalVelocity = Vector3.Normalize(goal - transform.position) * maxSpeed;
         Vector3 steerVelocity = Vector3.Normalize(goalVelocity - currentVel) * maxSpeed;
-        return steerVelocity;
+        currentVel = steerVelocity;
     }
 
     Vector3 getTarget(){
@@ -58,7 +71,10 @@ public class AITankController : MonoBehaviour {
         foreach (GameObject enemy in enemyList){
             RaycastHit hit;
             Vector3 toEnemy = transform.position - enemy.transform.position;
-            if (Physics.Linecast(transform.position + new Vector3(0, 1, 0), toEnemy, out hit)){
+            if (Physics.Linecast(transform.position + Vector3.up * 5, toEnemy, out hit)){
+                Debug.DrawLine(transform.position + Vector3.up * 5, hit.point, Color.green);
+                Debug.Log(hit.point);
+                Debug.Log(enemy.transform.position);
                 if (hit.collider.gameObject == enemy){
                     seenEnemies.Add(Vector3.Magnitude(transform.position - enemy.transform.position), enemy);
                 }
@@ -69,8 +85,10 @@ public class AITankController : MonoBehaviour {
             GameObject closestTank = null;
             seenEnemies.TryGetValue(minKey, out closestTank);
             return closestTank.transform.position;
+            Debug.Log("Moving to target");
         }
         else{
+            Debug.Log("No target found");
             return transform.position;
         }
     }
