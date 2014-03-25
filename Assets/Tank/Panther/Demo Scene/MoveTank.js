@@ -13,9 +13,12 @@ var rotationSpeed : float = 30;
 var spawnPoint : Transform;
 var bulletObject : GameObject;
 var fireEffect : GameObject;
-var shotSound : AudioSource;
+
+var nextFire: long;
 
 function Start() {
+	//Gun starts with no cooldown.
+	nextFire = 0L;
 
 	// Get Track Controls
 	leftTrack = GameObject.Find(gameObject.name + "/Lefttrack").GetComponent(MoveTrack);
@@ -120,15 +123,16 @@ function Update () {
 	}
 
 	// Fire!
-	if (Input.GetButtonDown("Fire1")) {
-		//The Sound of gun fire!
-		shotSound.Play();
-	
-		// make fire effect.
-		Instantiate(fireEffect, spawnPoint.position, spawnPoint.rotation);
-
-		// make ball
-		Instantiate(bulletObject, spawnPoint.position, spawnPoint.rotation);
+	if (Input.GetButton("Fire1")) {
+		//If gun is off of cooldown
+		if (System.DateTime.Now.Ticks >= nextFire) {
+			// make fire effect.
+			Instantiate(fireEffect, spawnPoint.position, spawnPoint.rotation);
+			// make ball
+			Instantiate(bulletObject, spawnPoint.position, spawnPoint.rotation);
+			//Reset cooldown
+			nextFire = System.DateTime.Now.Ticks + (1000L * 10000L);
+		}
 	}
 
 	//Update minimap
