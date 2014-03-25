@@ -56,6 +56,7 @@ public class AITankController : MonoBehaviour {
         setTarget();
         if (targetLoc != null){
             currentState = States.Chasing;
+            Debug.DrawLine(transform.position, targetLoc, Color.red);
         }
 
         if (currentState == States.Chasing){ // Move towards the target location with proper pursuit behavior
@@ -80,10 +81,10 @@ public class AITankController : MonoBehaviour {
         foreach (GameObject enemy in enemyList){ // Build a list of enemies seen and the distance to them
             if (!Physics.Linecast(transform.position + Vector3.up * 3, enemy.transform.position + Vector3.up * 3)){ // If we successfully draw a line from this tank to their enemy...
                 Debug.DrawLine(transform.position + Vector3.up * 3, enemy.transform.position + Vector3.up * 3, Color.green);
-                seenEnemies.Add(Vector3.Magnitude(transform.position - enemy.transform.position), enemy);
+                seenEnemies.Add(Vector3.Magnitude(transform.position - enemy.transform.position), enemy); // Add them to our list of seen enemies
             }
         }
-        if (seenEnemies.Count > 0){ //if we've seen some enemies, grab the closest one
+        if (seenEnemies.Count > 0){ //if we've seen some enemies, grab the closest one and set its position as our target location
             float minKey = seenEnemies.Keys.Min();
             GameObject closestTank = null;
             seenEnemies.TryGetValue(minKey, out closestTank);
