@@ -26,7 +26,6 @@ function Update () {
 function OnTriggerEnter(other: Collider){
 	// If hit something, Destroy self.  If it's an enemy, destroy it.
 	Instantiate(ExploPtcl, transform.position, transform.rotation);
-	Debug.Log(other.tag);
 	if (other.tag == "enemy" || other.tag == "friendly"){
 		Destroy(other.gameObject);
 	}
