@@ -13,6 +13,7 @@ var rotationSpeed : float = 30;
 var spawnPoint : Transform;
 var bulletObject : GameObject;
 var fireEffect : GameObject;
+var shotSound : AudioSource;
 
 function Start() {
 
@@ -120,6 +121,9 @@ function Update () {
 
 	// Fire!
 	if (Input.GetButtonDown("Fire1")) {
+		//The Sound of gun fire!
+		shotSound.Play();
+	
 		// make fire effect.
 		Instantiate(fireEffect, spawnPoint.position, spawnPoint.rotation);
 
