@@ -33,18 +33,6 @@ public class AITankController : MonoBehaviour {
             enemyList = TankManager.Instance.EnemyTanks;
             gameObject.tag = "friendly";
         }
-        Debug.Log("My Enemies");
-        foreach (GameObject o in enemyList){
-            Debug.Log(o);
-        }
-        Debug.Log("The Enemies");
-        foreach (GameObject o in TankManager.Instance.EnemyTanks){
-            Debug.Log(o);
-        }
-        Debug.Log("My Friends");
-        foreach (GameObject o in TankManager.Instance.FriendlyTanks){
-            Debug.Log(o);
-        }
     }
 
     // Update is called once per frame
