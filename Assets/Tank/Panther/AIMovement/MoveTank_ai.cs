@@ -8,9 +8,9 @@ public class MoveTank_ai : MonoBehaviour {
     public float currentVelocity = 0;
     public float maxSpeed = 10;
 
-    Transform spawnPoint;
-    GameObject bulletObject;
-    GameObject fireEffect;
+    public Transform spawnPoint;
+    public GameObject bulletObject;
+    public GameObject fireEffect;
 
     void Start() {
 

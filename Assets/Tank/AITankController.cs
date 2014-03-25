@@ -9,10 +9,16 @@ public class AITankController : MonoBehaviour {
     public enum States {Sleeping, Chasing, Searching, Fleeing}
     public States currentState;
     public int health;
+
+    public GameObject destroyed1;
+    public GameObject destroyed2;
+    public GameObject destroyed3;
+    public GameObject destroyed4;
+    public GameObject deathExplosion;
+
+
     private Vector3 targetLoc; // The position the tank is moving towards
     private List<GameObject> enemyList; //The list of things this tank considers an enemy
-    private Transform map;
-
     private MoveTank_ai controller;
 
     // Use this for initialization
@@ -72,6 +78,24 @@ public class AITankController : MonoBehaviour {
             GameObject closestTank = null;
             seenEnemies.TryGetValue(minKey, out closestTank);
             targetLoc = closestTank.transform.position;
+        }
+    }
+
+    void OnDestroy(){
+        Debug.Log(gameObject + " was destroyed!");
+        switch(UnityEngine.Random.Range(1, 4)){
+            case 1:
+                Instantiate(destroyed1, transform.position, transform.rotation);
+                break;
+            case 2:
+                Instantiate(destroyed2, transform.position, transform.rotation);
+                break;
+            case 3:
+                Instantiate(destroyed3, transform.position, transform.rotation);
+                break;
+            case 4:
+                Instantiate(destroyed4, transform.position, transform.rotation);
+                break;
         }
     }
 }

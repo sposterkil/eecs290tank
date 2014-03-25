@@ -11,11 +11,11 @@ function Update () {
 
 	// Move Ball forward
 	transform.Translate(Vector3.forward * Time.deltaTime * speed);
-	
+
 	// Record Distance.
 	dist += Time.deltaTime * speed;
-	
-	// If reach to my range, Destroy. 
+
+	// If reach to my range, Destroy.
 	if(dist >= range) {
 		Instantiate(ExploPtcl, transform.position, transform.rotation);
 		Destroy(gameObject);
@@ -24,8 +24,13 @@ function Update () {
 
 
 function OnTriggerEnter(other: Collider){
-	// If hit something, Destroy. 
+	// If hit something, Destroy self.  If it's an enemy, destroy it.
 	Instantiate(ExploPtcl, transform.position, transform.rotation);
+	Debug.Log(other.tag);
+	if (other.tag == "enemy" || other.tag == "friendly"){
+		Destroy(other.gameObject);
+	}
 	Destroy(gameObject);
+
 }
 
