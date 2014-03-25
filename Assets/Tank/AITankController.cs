@@ -13,15 +13,11 @@ public class AITankController : MonoBehaviour {
     private List<GameObject> enemyList; //The list of things this tank considers an enemy
     private Transform map;
 
-    private int maxSpeed = 10;
-    private int accel = 2;
-
-    private Vector3 currentVel = new Vector3(0, 0, 0);
-    private Vector3 currentAccel = new Vector3(0, 0, 0);
+    private MoveTank_ai controller;
 
     // Use this for initialization
     void Start () {
-        map = GameObject.Find("Map").GetComponent<Transform>();
+        controller = (MoveTank_ai)gameObject.GetComponent("MoveTank_ai");
         currentState = States.Sleeping;
         health = 100;
         if(UnityEngine.Random.Range(0, 1) == 0){
@@ -63,15 +59,14 @@ public class AITankController : MonoBehaviour {
             setVelTowards(targetLoc);
         }
 
-        if (currentState == States.Searching){ // a slow roll foward while looking for things to shoot
-
+        if (currentState == States.Searching){ // move foward while looking for things to shoot
+            controller.speedUp();
         }
-
     }
 
     void setVelTowards(Vector3 goal){
-        Vector3 goalVelocity = Vector3.Normalize(goal - transform.position) * maxSpeed;
-        Vector3 steerVelocity = Vector3.Normalize(goalVelocity - currentVel) * maxSpeed;
+        Vector3 goalVelocity = Vector3.Normalize(goal - transform.position) * controller.maxSpeed;
+        Vector3 steerVelocity = Vector3.Normalize(goalVelocity - transform.forward * controller.currentVelocity) * controller.maxSpeed;
 
     }
 
