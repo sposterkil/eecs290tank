@@ -14,8 +14,6 @@ public class AITankController : MonoBehaviour {
     public GameObject destroyed2;
     public GameObject destroyed3;
     public GameObject destroyed4;
-    public GameObject deathExplosion;
-
 
     private Vector3 targetLoc; // The position the tank is moving towards
     private List<GameObject> enemyList; //The list of things this tank considers an enemy
@@ -43,25 +41,19 @@ public class AITankController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        setTarget();
-        if (targetLoc != null){
-            currentState = States.Chasing;
-            Debug.DrawLine(transform.position, targetLoc, Color.red);
-        }
+        // setTarget();
+        // if (targetLoc != null){
+        //     currentState = States.Chasing;
+        //     Debug.DrawLine(transform.position, targetLoc, Color.red);
+        // }
 
-        if (currentState == States.Chasing){ // Move towards the target location with proper pursuit behavior
-            setVelTowards(targetLoc);
-        }
+        // if (currentState == States.Chasing){ // Move towards the target location with proper pursuit behavior
+        //     // setVelTowards(targetLoc);
+        // }
 
-        if (currentState == States.Searching){ // move foward while looking for things to shoot
-            controller.speedUp();
-        }
-    }
-
-    void setVelTowards(Vector3 goal){
-        Vector3 goalVelocity = Vector3.Normalize(goal - transform.position) * controller.maxSpeed;
-        Vector3 steerVelocity = Vector3.Normalize(goalVelocity - transform.forward * controller.currentVelocity) * controller.maxSpeed;
-
+        // if (currentState == States.Searching){ // move foward while looking for things to shoot
+        //     controller.speedUp();
+        // }
     }
 
     //Find a target to move towards
@@ -81,8 +73,7 @@ public class AITankController : MonoBehaviour {
         }
     }
 
-    void OnDestroy(){
-        Debug.Log(gameObject + " was destroyed!");
+    void Explode(){
         switch(UnityEngine.Random.Range(1, 4)){
             case 1:
                 Instantiate(destroyed1, transform.position, transform.rotation);
