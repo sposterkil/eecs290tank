@@ -41,19 +41,19 @@ public class AITankController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        // setTarget();
-        // if (targetLoc != null){
-        //     currentState = States.Chasing;
-        //     Debug.DrawLine(transform.position, targetLoc, Color.red);
-        // }
+        setTarget();
+        if (targetLoc != null){
+            currentState = States.Chasing;
+            Debug.DrawLine(transform.position, targetLoc, Color.red);
+        }
 
-        // if (currentState == States.Chasing){ // Move towards the target location with proper pursuit behavior
-        //     // setVelTowards(targetLoc);
-        // }
+        if (currentState == States.Chasing){ // Move towards the target location with proper pursuit behavior
+            // setVelTowards(targetLoc);
+        }
 
-        // if (currentState == States.Searching){ // move foward while looking for things to shoot
-        //     controller.speedUp();
-        // }
+        if (currentState == States.Searching){ // move foward while looking for things to shoot
+            controller.speedUp();
+        }
     }
 
     //Find a target to move towards

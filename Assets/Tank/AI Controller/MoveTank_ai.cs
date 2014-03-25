@@ -20,20 +20,15 @@ public class MoveTank_ai : MonoBehaviour {
 
     }
 
-    void Update(){
-        if (Input.GetKey (KeyCode.UpArrow)){
-            speedUp();
-        }
-    }
 
     void FixedUpdate () {
         switch (accel){
             case accelStates.Forward:
-                rigidbody.AddForce(transform.forward * 5000);
+                rigidbody.AddForce(transform.forward * 8000);
                 break;
 
             case accelStates.Backward:
-                rigidbody.AddForce(transform.forward * -5000);
+                rigidbody.AddForce(transform.forward * -8000);
                 break;
 
             default:
@@ -62,7 +57,7 @@ public class MoveTank_ai : MonoBehaviour {
             leftTrack.GearStatus = 0;
             rightTrack.GearStatus = 0;
         }
-
+        accel = accelStates.Stop;
     }
 
     public void speedUp() {
