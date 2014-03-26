@@ -13,6 +13,7 @@ var rotationSpeed : float = 30;
 var spawnPoint : Transform;
 var bulletObject : GameObject;
 var fireEffect : GameObject;
+var shotSound : AudioSource;
 
 var nextFire: long;
 
@@ -126,6 +127,7 @@ function Update () {
 	if (Input.GetButton("Fire1")) {
 		//If gun is off of cooldown
 		if (System.DateTime.Now.Ticks >= nextFire) {
+				shotSound.Play();
 			// make fire effect.
 			Instantiate(fireEffect, spawnPoint.position, spawnPoint.rotation);
 			// make ball
