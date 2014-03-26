@@ -71,6 +71,10 @@ public class AITankController : MonoBehaviour {
             seenEnemies.TryGetValue(minKey, out closestTank);
             targetLoc = closestTank.transform.position;
         }
+		
+		//Turn towards target location - TEMP SOLUTION
+		transform.LookAt(targetLoc);
+		
     }
 
     void Explode(){
