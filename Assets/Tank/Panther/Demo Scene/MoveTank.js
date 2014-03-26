@@ -33,6 +33,10 @@ function Update () {
 	if (Input.GetKey (KeyCode.UpArrow)) {
 		// plus speed
 		if (currentVelocity < maxSpeed) {
+			//Add more acceleration of "countering"
+			if (currentVelocity < 0) {
+				currentVelocity += acceleration * Time.deltaTime;
+			}
 			currentVelocity += acceleration * Time.deltaTime;
 			if (currentVelocity > maxSpeed)
 				currentVelocity = maxSpeed;
@@ -40,10 +44,15 @@ function Update () {
 
 	} else if (Input.GetKey (KeyCode.DownArrow)) {
 		// minus speed
-		if (currentVelocity > -maxSpeed)
+		if (currentVelocity > -maxSpeed) {
+			//Add more acceleration of "countering"
+			if (currentVelocity > 0) {
+				currentVelocity -= acceleration * Time.deltaTime;
+			}
 			currentVelocity -= acceleration * Time.deltaTime;
 			if (currentVelocity < -maxSpeed)
 				currentVelocity = -maxSpeed;
+		}
 
 	} else {
 		// No key input.
