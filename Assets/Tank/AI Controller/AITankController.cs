@@ -73,7 +73,7 @@ public class AITankController : MonoBehaviour {
         }
 		
 		//Turn towards target location - TEMP SOLUTION
-		transform.LookAt(targetLoc);
+		transform.FindChild("turret").LookAt(targetLoc);
 		
     }
 
