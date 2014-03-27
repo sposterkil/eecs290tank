@@ -17,7 +17,7 @@ public class SpawnScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		StartCoroutine(PeriodicSpawn());
 	//	StartSpawn ();// start the initial
 
 	}
@@ -31,6 +31,14 @@ public class SpawnScript : MonoBehaviour {
 						Spawn ("enemy");
 				}
 
+
+	}
+
+	IEnumerator PeriodicSpawn() {
+		while (true){
+			Spawn("enemy");
+			yield return new WaitForSeconds(10);
+		}
 	}
 
 	/**
@@ -51,48 +59,30 @@ public class SpawnScript : MonoBehaviour {
 			switch(spawn) {
 				case 1:
 					t = Instantiate(tank, spawn1.position, Quaternion.identity) as Transform;
-					ai = t.gameObject;
-					ai.SetActive(true);
 					break;
 				case 2:
 					t = Instantiate(tank, spawn2.position, Quaternion.identity) as Transform;
-					ai = t.gameObject;
-					ai.SetActive(true);
 					break;
 				case 3:
 					t = Instantiate(tank, spawn3.position, Quaternion.identity) as Transform;
-					ai = t.gameObject;
-					ai.SetActive(true);
 					break;
 				case 4:
 					t = Instantiate(tank, spawn4.position, Quaternion.identity) as Transform;
-					ai = t.gameObject;
-					ai.SetActive(true);
 					break;
 				case 5:
 					t = Instantiate(tank, spawn5.position, Quaternion.identity) as Transform;
-					ai = t.gameObject;
-					ai.SetActive(true);
 					break;
 				case 6:
 					t = Instantiate(tank, spawn6.position, Quaternion.identity) as Transform;
-					ai = t.gameObject;
-					ai.SetActive(true);
 					break;
 				case 7:
 					t = Instantiate(tank, spawn7.position, Quaternion.identity) as Transform;
-					ai = t.gameObject;
-					ai.SetActive(true);
 					break;
 				case 8:
 					t = Instantiate(tank, spawn8.position, Quaternion.identity) as Transform;
-					ai = t.gameObject;
-					ai.SetActive(true);
 				break;
 				case 9:
 					t = Instantiate(tank, spawn9.position, Quaternion.identity) as Transform;
-					ai = t.gameObject;
-					ai.SetActive(true);
 				break;
 				default:
 					Debug.Log ("not a valid spawn");
