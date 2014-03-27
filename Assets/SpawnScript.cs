@@ -24,19 +24,15 @@ public class SpawnScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
 		// for testing purposes press f5
 		if (Input.GetKeyDown ("f5")) {
-
-						Spawn ("enemy");
-				}
-
-
+			Spawn ();
+		}
 	}
 
 	IEnumerator PeriodicSpawn() {
 		while (true){
-			Spawn("enemy");
+			Spawn();
 			yield return new WaitForSeconds(10);
 		}
 	}
@@ -44,58 +40,45 @@ public class SpawnScript : MonoBehaviour {
 	/**
 	 * Random spawn at one of the places
 	 */
-	void Spawn(string role) {
-		Spawn (Random.Range (1, 10), role);
+	void Spawn() {
+		Spawn (Random.Range (1, 10));
 	}
 
 	/*
 	 * Handles the tank spawning
 	 */
-	void Spawn(int spawn, string role) {
-		GameObject ai;
-		Transform t;
-		if (role.Equals ("enemy")) {
-						Debug.Log ("enemy spawned"); //
-			switch(spawn) {
-				case 1:
-					t = Instantiate(tank, spawn1.position, Quaternion.identity) as Transform;
-					break;
-				case 2:
-					t = Instantiate(tank, spawn2.position, Quaternion.identity) as Transform;
-					break;
-				case 3:
-					t = Instantiate(tank, spawn3.position, Quaternion.identity) as Transform;
-					break;
-				case 4:
-					t = Instantiate(tank, spawn4.position, Quaternion.identity) as Transform;
-					break;
-				case 5:
-					t = Instantiate(tank, spawn5.position, Quaternion.identity) as Transform;
-					break;
-				case 6:
-					t = Instantiate(tank, spawn6.position, Quaternion.identity) as Transform;
-					break;
-				case 7:
-					t = Instantiate(tank, spawn7.position, Quaternion.identity) as Transform;
-					break;
-				case 8:
-					t = Instantiate(tank, spawn8.position, Quaternion.identity) as Transform;
+	void Spawn(int spawn) {
+		switch(spawn) {
+			case 1:
+				Instantiate(tank, spawn1.position, Quaternion.identity);
 				break;
-				case 9:
-					t = Instantiate(tank, spawn9.position, Quaternion.identity) as Transform;
+			case 2:
+				Instantiate(tank, spawn2.position, Quaternion.identity);
 				break;
-				default:
-					Debug.Log ("not a valid spawn");
+			case 3:
+				Instantiate(tank, spawn3.position, Quaternion.identity);
 				break;
-			}
-
+			case 4:
+				Instantiate(tank, spawn4.position, Quaternion.identity);
+				break;
+			case 5:
+				Instantiate(tank, spawn5.position, Quaternion.identity);
+				break;
+			case 6:
+				Instantiate(tank, spawn6.position, Quaternion.identity);
+				break;
+			case 7:
+				Instantiate(tank, spawn7.position, Quaternion.identity);
+				break;
+			case 8:
+				Instantiate(tank, spawn8.position, Quaternion.identity);
+				break;
+			case 9:
+				Instantiate(tank, spawn9.position, Quaternion.identity);
+				break;
+			default:
+				Debug.Log ("not a valid spawn");
+				break;
 		}
-		else if (role.Equals ("ally")) {
-						Debug.Log ("ally spawned");
-
-		}
-		else { // not a valid spawn
-						Debug.Log ("invalid spawn");
-		}
-		}
+	}
 }

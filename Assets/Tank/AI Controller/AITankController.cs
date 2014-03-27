@@ -25,11 +25,16 @@ public class AITankController : MonoBehaviour {
         controller = (MoveTank_ai)gameObject.GetComponent("MoveTank_ai");
         currentState = States.Sleeping;
         health = 100;
-        if(UnityEngine.Random.Range(0, 1) == 0){
+        if(UnityEngine.Random.Range(0, 2) == 0){
             isFriendly = false;
             gameObject.tag = "enemy";
             TankManager.Instance.EnemyTanks.Add(gameObject);
             enemyList = TankManager.Instance.FriendlyTanks;
+
+            Transform body = transform.Find("body");
+
+            body.renderer.material.shader = Shader.Find("Diffuse");
+            body.renderer.material.SetColor("_Color", Color.red);
 
         }
         else{
@@ -96,7 +101,7 @@ public class AITankController : MonoBehaviour {
             targetLoc = closestTank.transform.position;
             targetEnemy = closestTank;
         }
-		
+
 		/*
 		// 	TURN THE TANK TOWARDS TARGET
 		//Target components
@@ -134,7 +139,7 @@ public class AITankController : MonoBehaviour {
 			}
 			else {
 				if (Dx < 0)
-					controller.turnLeft(); //right	
+					controller.turnLeft(); //right
 				else
 					controller.turnRight(); //left
 			}
