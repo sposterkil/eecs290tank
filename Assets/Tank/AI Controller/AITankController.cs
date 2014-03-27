@@ -97,6 +97,7 @@ public class AITankController : MonoBehaviour {
             targetEnemy = closestTank;
         }
 		
+		/*
 		// 	TURN THE TANK TOWARDS TARGET
 		//Target components
 		float Tx = targetLoc.x - transform.localPosition.x;
@@ -155,6 +156,13 @@ public class AITankController : MonoBehaviour {
 					controller.turnLeft();
 			}
 		}
+		
+		*/
+		
+		transform.LookAt(targetLoc);
+		
+		TerrainData tdata = GameObject.Find("Map").GetComponent<Terrain>().terrainData;
+		transform.LookAt(targetLoc, tdata.GetInterpolatedNormal(transform.position.x / tdata.alphamapHeight, transform.position.z / tdata.alphamapHeight));
 		
 		transform.FindChild("turret").LookAt(targetLoc);
     }
