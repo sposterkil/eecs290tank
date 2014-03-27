@@ -11,6 +11,8 @@ public class AITankController : MonoBehaviour {
     public int health;
 	public int reloadtime = 0;
 
+	public HUDManager hudscript;
+
     private float turnTimer;
     private Vector3 targetLoc; // The position the tank is moving towards
     private GameObject targetEnemy;
@@ -64,6 +66,10 @@ public class AITankController : MonoBehaviour {
 
         }
     }
+
+	void OnDestroy() {
+		hudscript.killed ();
+	}
 
     bool CanSeeTarget(){
         if (targetEnemy != null){
