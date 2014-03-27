@@ -90,7 +90,66 @@ public class AITankController : MonoBehaviour {
             targetLoc = closestTank.transform.position;
             targetEnemy = closestTank;
         }
-		//Turn towards target location - TEMP SOLUTION
+		
+		// 	TURN THE TANK TOWARDS TARGET
+		//Target components
+		float Tx = targetLoc.x - transform.localPosition.x;
+		float Tz = targetLoc.z - transform.localPosition.z;
+		//Current Direction components
+		float Dx = transform.forward.x;
+		float Dz = transform.forward.z;
+		bool xmatch = (Tx / Dx) > 0;
+		bool zmatch = (Tz / Dz) > 0;
+		//Case 1: Same quadrant
+		if (xmatch && zmatch) {
+			float angleD = Mathf.Tan(Dz/Dx);
+			float angleT = Mathf.Tan(Tz/Tx);
+			if (Mathf.Abs(angleD) > Mathf.Abs(angleT)) {
+				if (Dx / Dz > 0)
+					controller.turnRight();
+				else
+					controller.turnLeft();
+			}
+			else {
+				if (Dx / Dz > 0)
+					controller.turnLeft();
+				else
+					controller.turnRight();
+			}
+		}
+		//Case 2: Adjacent quadrant
+		else if (xmatch || zmatch) {
+			if (xmatch) {
+				if (Dz < 0)
+					controller.turnLeft();
+				else
+					controller.turnRight();
+			}
+			else {
+				if (Dx < 0)
+					controller.turnLeft(); //right	
+				else
+					controller.turnRight(); //left
+			}
+		}
+		//Case 3L Opposite quadrant
+		else {
+			float angleD = Mathf.Tan(Dz/Dx);
+			float angleT = Mathf.Tan(Tz/Tx);
+			if (Mathf.Abs(angleD) > Mathf.Abs(angleT)) {
+				if (Dx / Dz > 0)
+					controller.turnLeft();
+				else
+					controller.turnRight();
+			}
+			else {
+				if (Dx / Dz > 0)
+					controller.turnRight();
+				else
+					controller.turnLeft();
+			}
+		}
+		
 		transform.FindChild("turret").LookAt(targetLoc);
     }
 }
