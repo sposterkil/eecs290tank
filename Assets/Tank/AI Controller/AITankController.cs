@@ -9,6 +9,7 @@ public class AITankController : MonoBehaviour {
     public enum States {Sleeping, Chasing, Searching, Fleeing}
     public States currentState;
     public int health;
+	public int reloadtime = 0;
 
     private float turnTimer;
     private Vector3 targetLoc; // The position the tank is moving towards
@@ -39,6 +40,9 @@ public class AITankController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+		if (reloadtime > 0) {
+				reloadtime--;
+		}
         setTarget();
         if (targetLoc != null){
             currentState = States.Chasing;
@@ -53,7 +57,11 @@ public class AITankController : MonoBehaviour {
             // Do something
         }
         if (CanSeeTarget()){
-            controller.fireTurret();
+			if (reloadtime==0){
+            	controller.fireTurret();
+				reloadtime = 100;
+			}
+
         }
     }
 
