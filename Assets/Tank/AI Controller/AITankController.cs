@@ -10,17 +10,15 @@ public class AITankController : MonoBehaviour {
     public States currentState;
     public int health;
 
-    public GameObject destroyed1;
-    public GameObject destroyed2;
-    public GameObject destroyed3;
-    public GameObject destroyed4;
-
+    private float turnTimer;
     private Vector3 targetLoc; // The position the tank is moving towards
+    private GameObject targetEnemy;
     private List<GameObject> enemyList; //The list of things this tank considers an enemy
     private MoveTank_ai controller;
 
     // Use this for initialization
     void Start () {
+        turnTimer = Time.time;
         controller = (MoveTank_ai)gameObject.GetComponent("MoveTank_ai");
         currentState = States.Sleeping;
         health = 100;
@@ -52,7 +50,19 @@ public class AITankController : MonoBehaviour {
         }
 
         if (currentState == States.Searching){ // move foward while looking for things to shoot
-            controller.speedUp();
+            // Do something
+        }
+        if (CanSeeTarget()){
+            controller.fireTurret();
+        }
+    }
+
+    bool CanSeeTarget(){
+        if (targetEnemy != null){
+            return !Physics.Linecast(transform.position + Vector3.up * 3, targetEnemy.transform.position + Vector3.up * 3);
+        }
+        else {
+            return false;
         }
     }
 
@@ -70,27 +80,9 @@ public class AITankController : MonoBehaviour {
             GameObject closestTank = null;
             seenEnemies.TryGetValue(minKey, out closestTank);
             targetLoc = closestTank.transform.position;
+            targetEnemy = closestTank;
         }
-		
 		//Turn towards target location - TEMP SOLUTION
 		transform.FindChild("turret").LookAt(targetLoc);
-		
-    }
-
-    void Explode(){
-        switch(UnityEngine.Random.Range(1, 4)){
-            case 1:
-                Instantiate(destroyed1, transform.position, transform.rotation);
-                break;
-            case 2:
-                Instantiate(destroyed2, transform.position, transform.rotation);
-                break;
-            case 3:
-                Instantiate(destroyed3, transform.position, transform.rotation);
-                break;
-            case 4:
-                Instantiate(destroyed4, transform.position, transform.rotation);
-                break;
-        }
     }
 }
