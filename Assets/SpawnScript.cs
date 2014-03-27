@@ -12,16 +12,16 @@ public class SpawnScript : MonoBehaviour {
 	public Transform spawn7;
 	public Transform spawn8;
 	public Transform spawn9;
-	public Transform tank;
+	public GameObject tank;
 
 
 	// Use this for initialization
 	void Start () {
 
-	//	StartSpawn ();// start the initial 
-	
+	//	StartSpawn ();// start the initial
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -30,7 +30,7 @@ public class SpawnScript : MonoBehaviour {
 
 						Spawn ("enemy");
 				}
-	
+
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class SpawnScript : MonoBehaviour {
 		GameObject ai;
 		Transform t;
 		if (role.Equals ("enemy")) {
-						Debug.Log ("enemy spawned"); // 
+						Debug.Log ("enemy spawned"); //
 			switch(spawn) {
 				case 1:
 					t = Instantiate(tank, spawn1.position, Quaternion.identity) as Transform;
@@ -83,7 +83,7 @@ public class SpawnScript : MonoBehaviour {
 					t = Instantiate(tank, spawn7.position, Quaternion.identity) as Transform;
 					ai = t.gameObject;
 					ai.SetActive(true);
-					break;				
+					break;
 				case 8:
 					t = Instantiate(tank, spawn8.position, Quaternion.identity) as Transform;
 					ai = t.gameObject;
@@ -98,14 +98,14 @@ public class SpawnScript : MonoBehaviour {
 					Debug.Log ("not a valid spawn");
 				break;
 			}
-				
-		} 
+
+		}
 		else if (role.Equals ("ally")) {
 						Debug.Log ("ally spawned");
 
-		} 
+		}
 		else { // not a valid spawn
 						Debug.Log ("invalid spawn");
 		}
-		} 
+		}
 }
