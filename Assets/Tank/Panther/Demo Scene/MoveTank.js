@@ -6,7 +6,7 @@ var rightTrack : MoveTrack;
 var acceleration : float = 5;
 
 var currentVelocity : float = 0;
-var maxSpeed : float = 10;
+var maxSpeed : float = 40;
 
 var rotationSpeed : float = 30;
 

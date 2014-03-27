@@ -5,7 +5,7 @@ public class MoveTank_ai : MonoBehaviour {
     private enum accelStates {Forward, Stop, Backward};
     private accelStates accel = accelStates.Stop;
     public float speed = 10;
-    public float maxSpeed = 10;
+    public float maxSpeed = 40;
 
 
     public Transform spawnPoint;
@@ -24,11 +24,11 @@ public class MoveTank_ai : MonoBehaviour {
     void FixedUpdate () {
         switch (accel){
             case accelStates.Forward:
-                rigidbody.AddForce(transform.forward * 8000);
+                rigidbody.AddForce(transform.forward * 10000);
                 break;
 
             case accelStates.Backward:
-                rigidbody.AddForce(transform.forward * -8000);
+                rigidbody.AddForce(transform.forward * -10000);
                 break;
 
             default:
