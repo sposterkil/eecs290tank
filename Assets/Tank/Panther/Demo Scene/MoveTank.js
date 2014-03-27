@@ -13,6 +13,7 @@ var rotationSpeed : float = 30;
 var spawnPoint : Transform;
 var bulletObject : GameObject;
 var fireEffect : GameObject;
+var deathCam : GameObject;
 
 var nextFire: long;
 
@@ -150,4 +151,8 @@ function Update () {
 	map.localPosition.x = player.localPosition.x;
 	map.localPosition.y = player.localPosition.y + 150f;
 	map.localPosition.z = player.localPosition.z;
+}
+
+function OnDeath() {
+	deathCam.SetActive(true);
 }
